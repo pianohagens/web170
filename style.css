@@ -20,7 +20,13 @@ body {
     margin: 20px auto;
     background-color: azure;
 }
-
+body.home #navigation li.home,
+ body.about #navigation li.about,
+ body.service #navigation li.service,
+ body.products #navigation li.products,
+ body.contact #navigation li.contact{
+     background-color: orangered;
+ }
 #header {
     width: 100%;
     padding: 10px;
