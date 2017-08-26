@@ -1,27 +1,9 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-    
-<!-- Start Title Tag -->
-<?php the_title( '<h1>', '</h1>' ); ?>
-<!-- End Title Tag -->
-        
-<!----- Begin Styles --------------->
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('stylesheet_url'); ?>" />
-<!----- End Styles --------------->
- 
-<!-- Start WP Head -->
-<?php wp_head(); ?>
-<!-- End WP Head -->
-        
-    </head><!----- End head --------------->
+<?php get_header(); ?>
 
-    
-<body <?php body_class();?>>
+
     <!----- Begin Header --------------->
     <div id="header">
-        
+     <h1>This is my Header</h1>   
     </div>
     <!----- End Header ---------------> 
     <!----- Begin Navigation --------------->
@@ -46,7 +28,7 @@
         
             <article class="post-main" id="post-main-<?php the_ID(); ?>">
                 <h2><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></h2>    
-                <h4 class="postdate">Posted on <?php the_time('F j, Y'); ?> in <?php the_category(', ') ?> by <?php the_author(); ?></h4>
+                <h4 class="postdate">Posted on <?php the_time('F j, Y'); ?> in Categories of <?php the_category(' , '); ?> by <?php the_author(); ?></h4>
                 <a href="<?php the_permalink(); ?>" rel="bookmark" title="Permanent Link to"><?php the_post_thumbnail('thumbnail'); ?></a>
                 <?php the_excerpt(); ?>
                 <p class="readmore"><a href="<?php the_permalink(); ?>">Read More &raquo;</a> </p>
@@ -57,30 +39,8 @@
         
     </div>
     <!----- End Main --------------->
-        
-    <!----- Begin aside --------------->
-    <div id="aside">
-        <h3> This is my aside</h3>
-    </div>
-    <!----- End aside --------------->
-        
-        
-    <!----- Begin sidebar --------------->
-    <div id="sidebar">
-        <h3> This is my sidebar</h3>
-    </div>
-    <!----- End sidebar --------------->
+
         
 
-    </body>
-    
-    <!-- Start WP Footer -->
-<?php wp_footer(); ?>
-
-<!-- End WP Footer -->
-        <!----- End Footer --------------->
-     <div id="footer">
-<p>&copy;2017     |    All Right Reserved | Desigen be: Piano Hagens </p>   
-    </div>
-    <!----- End footer --------------->
-</html>
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>
