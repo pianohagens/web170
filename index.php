@@ -5,13 +5,17 @@
         <title>Web170_Temp</title>
         
 <!----- Begin Styles --------------->
-<link rel="stylesheet" href="style.css" type="text/css" media="all" />
+<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('stylesheet_url'); ?>" />
 <!----- End Styles --------------->
+ 
+<!-- Start WP Head -->
+<?php wp_head(); ?>
+<!-- End WP Head -->
         
     </head><!----- End head --------------->
 
     
-    <body>
+<body <?php body_class();?>>
     <!----- Begin Header --------------->
     <div id="header">
         
@@ -50,6 +54,11 @@
         
 
     </body>
+    
+    <!-- Start WP Footer -->
+<?php wp_footer(); ?>
+
+<!-- End WP Footer -->
         <!----- End Footer --------------->
      <div id="footer">
 <p>&copy;2017     |    All Right Reserved | Desigen be: Piano Hagens </p>   
