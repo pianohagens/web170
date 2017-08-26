@@ -8,4 +8,4 @@ Description: Wordpress project start with sketch sheet
 Version: 1.0
 */
 
-?
+?>
