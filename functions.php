@@ -8,4 +8,20 @@ Description: Wordpress project start with sketch sheet
 Version: 1.0
 */
 
+// Register Menu Locations-- if no argument provided, it will not have "Manage Location" Tag
+register_nav_menus(array(
+    'top-menu' =>__('My Menus', 'Web170_Temp'), 
+    'bottom-menu' =>__('Bottom Menus', 'Web170_Temp'), 
+    'side-menu' =>__('Side Menus', 'Web170_Temp'), 
+)); 
+//
+
+// Register Sidebar
+register_sidebar(array(
+    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    'after_widget' => '</div>',
+    'before_title' => '<h2>',
+    'after_title' => '</h2>',
+));
+//
 ?>

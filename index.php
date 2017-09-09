@@ -1,24 +1,8 @@
 <?php get_header(); ?>
 
-
-    <!----- Begin Header --------------->
-    <div id="header">
-     <h1>This is my Header</h1>   
-    </div>
-    <!----- End Header ---------------> 
-    <!----- Begin Navigation --------------->
-<div id="navigation">
-     <ul>
-          <li class="home"><a href="#"><span>Home</span></a></li>
-          <li class="about"><a href="#"><span>About</span></a></li>
-          <li class="service"><a href="#"><span>Service</span></a></li>
-          <li class="products"><a href="#"><span>Products</span></a></li>
-          <li class="last contact"><a href="#"><span>Contact</span></a></li>
-     </ul>
- </div>
-    <!----- End Navigation --------------->
         
     <!----- Begin Main --------------->
+<div id="container"> 
     <div id="main">
         <h2>This is my Main</h2>
         
@@ -36,8 +20,11 @@
         <?php endwhile; ?>
 <?php endif; ?>
     <!-- End Content -->
-        
+   <h5>index.php</h5>     
     </div>
+</div>
+
+
     <!----- End Main --------------->
 
         

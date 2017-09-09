@@ -1,0 +1,187 @@
+/* NAVIGATION 
+#mobile_botton
+nav#navbar.menu-my-menu1-container
+ul#menu-my-menu1 .menu
+
+*/
+	#mobile_botton {
+		display: none;
+}
+   
+#navbar.menu-my-menu1-container {
+    margin: 5px auto;
+    width: 100%;
+        clear:both;
+        background-color:#7ba251;
+        position: relative;
+        display: inline-block;
+        height: 70px;
+	}
+	
+	#menu-my-menu1 {
+		height:65px; 
+		text-align: center;
+		margin: 0 auto;
+		position: relative;
+        padding: 5px;
+		}
+
+	#menu-my-menu1 > li {
+		width:20%;
+		padding: 20px;
+		vertical-align: middle;
+		display: inline-block;
+		position: relative;
+        text-decoration: none;
+        background-color:darkgreen;
+		}
+
+	    #menu-my-menu1 li:hover{
+      	opacity: .8;
+    }
+
+#menu-my-menu1 li.current-menu-item {
+    background-color: green;
+}
+		#menu-my-menu1 > li > a {
+		color:#ffffff;
+		display:block;
+        text-decoration: none;
+			}
+			
+		#menu-my-menu1 > li > a:hover{
+			color: #000000;
+			}
+	
+	#menu-my-menu1 ul.sub-menu {
+        text-decoration: none;
+		display: none;
+		position: absolute;
+		background-color: #999999;
+         margin: 20px auto auto -19px;
+	}
+		#menu-my-menu1 li:hover ul.sub-menu {
+		display: block;
+        width: 99.5%;
+	}
+	#menu-my-menu1 ul.sub-menu li {
+		display: block;
+		border: 1px solid #cccccc;
+        position: relative;
+		text-transform: uppercase;
+        white-space: nowrap;
+		}
+    #menu-my-menu1 ul.sub-menu li:hover{
+        opacity: .8;
+    }
+	#menu-my-menu1 ul.sub-menu li a {
+        text-decoration: none;
+		padding: 16px 2px;
+        display: block;
+
+		}
+#menu-my-menu1 > li span.downarrow{
+    display: none;
+}
+	#menu-my-menu1 ul.sub-menu li a:hover{color:#ffffff;}
+
+/*----------------- mobile Menu--------------------- */
+
+/* Tablet Screen Set to 800px or Below */
+@media screen and (max-width: 800px) {
+    
+	#mobile_botton {
+		display: block;
+		text-align: right;
+		position: absolute;
+        top:160px;
+		right: 35px;
+		font-size: 3em;        
+	}
+    #mobile_botton a{
+        color: red;
+        display: block;
+        text-decoration: none;
+    }
+	
+	#navbar.menu-my-menu1-container {
+		display: none;
+		width: auto;
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	#menu-my-menu1 > li {
+        width: 98%;
+		padding: 15px;
+		}
+	#menu-my-menu1 li {		
+		display: block;
+		text-align: left;
+		border-bottom: 2px solid red;
+        background-color: lawngreen;
+		}		
+	
+	#menu-my-menu1 li ul.sub-menu {
+		position: relative;
+        width: 98%;
+		border: none;
+        margin-left: 0;
+	}
+	#menu-my-menu1 ul.sub-menu li {		
+		display: block;
+		text-align: left;
+		margin: 5px;
+		border: none;
+		}
+    #menu-my-menu1 ul.sub-menu li a {
+        padding-left: 20px;
+    }
+    
+	#menu-my-menu1 li:hover ul.sub-menu {
+		position: relative;
+		display: none;
+	}
+    
+    #menu-my-menu1 > li span.downarrow {
+        width: 30px;
+        height: 30px;
+        display: block;
+        font-weight: bold;
+        color: red;
+        font-size: 2.5em;
+        position: absolute;
+        padding: 5px;
+        top: 8px;
+        right: 10px;
+        z-index: 50;
+        cursor: pointer;
+        }
+	
+		
+	#menu-my-menu1 li  {
+		display: block;
+	   }	
+}
+
+/* Mobile Screen Set to 600px or Below */
+@media screen and (max-width: 600px) {
+
+		
+}
+	
+		
+/* Mobile Screen Set to 500px or Below */
+@media screen and (max-width: 500px) {
+
+}
+
+/* Mobile Screen Set to 400px or Below */
+@media screen and (max-width: 400px) {
+
+
+	
+}
+
+
+
