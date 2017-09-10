@@ -1,4 +1,4 @@
-        
+    
     <!----- Begin aside --------------->
     <div id="sidebar">
         <h2> <?php echo get_the_title($post->post_parent); ?></h2>
@@ -13,7 +13,23 @@
             }
             
             ?>
-      </ul>  
+      </ul>
+        
+        <h3>
+        <!--- Begin Blessing Quote ----->
+        <?php if (get_post_meta($post->ID, 'Quote', 'Blessing', 'Good News', true)) : //check to see if there is a quote called 'Blessing'?> 
+            
+            <ul>
+            <blockquote><?php echo get_post_meta($post->ID, 'Quote', true); //write out the quote?> </blockquote>
+            <blockquote><?php echo get_post_meta($post->ID, 'Blessing', true); //write out the quote?> </blockquote>
+            <blockquote><?php echo get_post_meta($post->ID, 'Good News', true); //write out the quote?> </blockquote>            
+            </ul>
+        <?php endif; ?>    
+        <!--- Begin Bless Quote ----->
+        
+        
+      
+        </h3>
     </div>
     <!----- End aside --------------->
         
