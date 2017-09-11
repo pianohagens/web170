@@ -24,4 +24,17 @@ register_sidebar(array(
     'after_title' => '</h2>',
 ));
 //
+
+// Create page Excerpts
+add_post_type_support( 'page', 'excerpt' );
+
+//// custom_excerpt Filter the except length to 20 words.
+//function custom_excerpt_length( $length ) {
+//    return 20;
+//}
+//add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+//
+
+// Create Post Thumbnails
+add_theme_support( 'post-thumbnails' );
 ?>

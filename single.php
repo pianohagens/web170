@@ -1,21 +1,23 @@
 <?php get_header(); ?>
 	
 <!-- Start Content -->
+<div id="container"> 
 <div id="main">
-	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-    <article id="post-<?php the_ID(); ?>" class="post">
-    <h2><?php the_title(); ?></h2>
-    <h4>Posted on <?php the_time('F jS, Y') ?> in <?php the_category(', ') ?></h4>
-    <?php get_featured_image_with_link(); ?>
-    <?php the_content(''); ?>
-    <ul class="post-navigation">
-        <li class="post-navigation-previous"><?php next_post('&laquo;&nbsp;%','', 'yes'); ?></li>
-        <li class="post-navigation-next"><?php previous_post('%&nbsp;&raquo;','', 'yes'); ?></li>
-    </ul>
-    </article> 
-    <?php comments_template(); ?>
-    <?php endwhile; endif; ?>
-        <h5>single.php</h5>   
+	<!-- Begin Content -->    
+        <?php if (have_posts() ) : while ( have_posts() ) : the_post(); // start the loop ?>
+        
+        <article id="post-<?php the_ID(); ?>" class="post">
+        <h2><?php the_title(); //get the page or posting title ?></h2>
+        <h5>Posted on <?php the_time('F J, Y'); // Add the time ?> By <?php the_author(); // add the author ?>; In Category of <?php the_category(', '); //add category?></h5>
+        
+        <?php the_post_thumbnail('large'); //call out and enlarge featured images ?>
+        <?php the_content(''); // get the page or post content ?>    
+        
+        <?php endwhile; endif; // end the loop ?>
+    <!-- End Content -->
+        <h5>single.php</h5>  
+        </article>
+</div>
 </div>
 <!-- End Content -->
 
