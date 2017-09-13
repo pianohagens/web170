@@ -1,441 +1,331 @@
-<?php 
+<?php
 
 /*  
-Theme Name: Students of Premium Design Works
-Description: This is a theme your mom would finally respond to.
-Version: 3
+Theme Name: Premium Design Works
+Description: This is a theme your mom would be responsive to.
+Version: 3.0
 Author: Premium Design Works
 Author URI: http://www.premiumdw.com/
 */
 
-// Add Editor Styles
-add_editor_style( 'admin.css' );
+// Link to admin styles
+add_editor_style('admin.css');
 //
 
-
-// Register Sidebars
-register_sidebars(2, array(
-	'before_widget' => '<div id="%1$s" class="widget %2$s">',
-	'after_widget' => '</div>',
-	'before_title' => '<h2>',
-	'after_title' => '</h2>',
-));
+//  Register Sidebar
+register_sidebar(array('before_widget' => '<div id="%1$s" class="widget %2$s">', 'after_widget' => '</div>', 'before_title' => '<h2>', 'after_title' => '</h2>',));
 //
 
+// Register Menus
+register_nav_menus(array('main-menu' => __('Main Menu'), 'footer-menu' => __('Footer Menu')));	
+//
+
+// Create Post Thumbnails
+add_theme_support('post-thumbnails');
+//
+
+// Create Custom Image Sizes
+add_image_size('icon', 140, 140, true); // 140 pixels wide by 140 pixels tall, hard crop mode
 
 // Create Page Excerpts
-add_post_type_support( 'page', 'excerpt' );
+add_post_type_support('page', 'excerpt');
 //
-
-
-// Enable Post Thumbnails (Featured Image)
-add_theme_support( 'post-thumbnails' ); 
-//
-
 
 // Get My Title Tag
 function get_my_title_tag() {
 	
-	global $post;
-	
-	if ( is_front_page() ) {  // for the site’s Front Page
-	
-		bloginfo('description'); // retrieve the site tagline
-	
-	} 
-	
-	elseif ( is_page() || is_single() ) { // for your site’s Pages or Postings
-	
-		the_title(); // retrieve the page or posting title 
-	
-	} 
-	
-	else { // for everything else
-		
-		bloginfo('description'); // retrieve the site tagline
-		
-	}
-	
-	if ( $post->post_parent ) { // for your site’s Parent Pages
-	
-		echo ' | '; // separator with spaces
-		echo get_the_title($post->post_parent);  // retrieve the parent page title
-		
-	}
-	
-	echo ' | '; // separator with spaces
-	bloginfo('name'); // retrieve the site name
-	echo ' | '; // separator with spaces
-	echo 'Seattle, WA.'; // write in the location
-	
-}
-//
+    global $post;
 
+    if (is_front_page()) {  // for the site’s front page
 
-// Get My Meta Description 
-function get_my_meta_description() {
-	
-	global $post;
-	
-	if ( is_page() || is_single() ) { // for pages or postings...
-	
-		echo strip_tags(get_the_excerpt()); // get the excerpt from the excerpt filed or the first 150 words of the page or posting
-		
-	} else { // for everything else...
-		
-		echo strip_tags(get_the_author_meta('description', 6)); // retrieve my author description
-		
-	}
+        bloginfo('description'); // retrieve the site tagline
+
+    } elseif (is_page()) { // for your site’s pages
+
+        the_title(); // retrieve the page title 
+
+        if ($post->post_parent) { // if the page has a parent
+
+            echo ' | '; // separator with spaces
+            echo get_the_title($post->post_parent);  // retrieve the parent page title
+
+        }
+
+    } elseif (is_category()) { // for your site's categories
+
+        echo get_the_category()[0]->cat_name; // retrieve the category name
+
+    } elseif (is_single()) { // for your site’s postings
+
+        the_title(); // retrieve the posting title 
+        echo ' | '; // separator with spaces
+        echo get_the_category()[0]->cat_name; // retrieve the category name
+
+    } else { // for everything else
+
+        bloginfo('description'); // retrieve the site tagline
+
+    }
+
+    echo ' | '; // separator with spaces
+    bloginfo('name'); // retrieve the site name
+    echo ' | '; // separator with spaces
+    echo 'Seattle, WA.'; // write in the location
 	
 }
 //
 
-
-// Get My Main Menu
-function get_my_main_menu() {
+// Get Gateway Page Spotlights
+function get_gateway_spotlights() {
 	
-	echo '<div id="nav">';
-	echo '<h4 id="nav-title">Menu<span id="nav-glyph"></span></h4>';
-	echo '<ul id="nav-items">';
-	
-	$main_pages = get_pages(array('meta_key' => 'navigation', 'meta_value' => 'main', ));
-	$parent_ID = wp_get_post_parent_id($post_ID);
-	
-	foreach ($main_pages as $main) { // foreach main (gateway) page... 
-	
-		if (is_page($main->ID)) { // if is current page...  
-			 
-			echo '<li class="main page-item-'.$main->ID.' current-page-item">'; // ... add list item with class of current page item
-			 
-		} elseif ($parent_ID == ($main->ID)) { // if is current page parent...
-			
-			echo '<li class="main page-item-'.$main->ID.' current-page-parent">'; // ... add list item with class of current page parent
-				
-		} else { // not current page or current page parent...
-			
-			echo '<li class="main page-item-'.$main->ID.'">'; // ... add list item with no class
-		}
-		
-		echo '<a href="'.get_permalink($main->ID).'">'.$main->post_title.'</a>'; // get the title with permalink
-		echo '<ul class="sub-menu">'; // get the sub-menu items
-			
-		if ($main->post_parent) { // if the page has a parent...
-						
-			echo '<li class="pagenav" >Class:';
-			echo '<ul>';
-			echo '<li><a href="'.get_permalink($main->post_parent).'">Syllabus</a></li>'; // add link to syllabus with no class
-			wp_list_pages(array('child_of' => $main->post_parent, 'title_li' => '', 'meta_key' => 'navigation', 'meta_value' => 'class',)); 
-			echo '</ul>';
-			wp_list_pages(array('child_of' => $main->post_parent, 'title_li' => 'Lectures:', 'meta_key' => 'navigation', 'meta_value' => 'lecture',));
-			wp_list_pages(array('child_of' => $main->post_parent, 'title_li' => 'Assignments:', 'meta_key' => 'navigation', 'meta_value' => 'assignment',)); 
-			wp_list_pages(array('child_of' => $main->post_parent, 'title_li' => 'Exercises:', 'meta_key' => 'navigation', 'meta_value' => 'exercise',));
-			wp_list_pages(array('child_of' => $main->post_parent, 'title_li' => 'Teams:', 'meta_key' => 'navigation', 'meta_value' => 'team',));
-			wp_list_pages(array('child_of' => $main->post_parent, 'title_li' => 'Students:', 'meta_key' => 'navigation', 'meta_value' => 'student',));
-			
-		} else { // if the page does not have a parent...
-		
-			echo '<li class="pagenav">Class:';
-			echo '<ul>';
-			
-			if (is_page($main->ID)) { // if is the current parent page
-				
-				echo '<li class="current_page_item"><a href="'.get_permalink($main->ID).'">Syllabus</a></li>'; // add link to syllabus with class of current page item
-				
-			} else { // not current parent page
-				
-				echo '<li><a href="'.get_permalink($main->ID).'">Syllabus</a></li>';// add link to syllabus with no class
-				
-			}
-			
-			wp_list_pages(array('child_of' => $main->ID, 'title_li' => '', 'meta_key' => 'navigation', 'meta_value' => 'class',));
-			echo '</ul>';
-			wp_list_pages(array('child_of' => $main->ID, 'title_li' => 'Lectures:', 'meta_key' => 'navigation', 'meta_value' => 'lecture',));
-			wp_list_pages(array('child_of' => $main->ID, 'title_li' => 'Assignments:', 'meta_key' => 'navigation', 'meta_value' => 'assignment',));
-			wp_list_pages(array('child_of' => $main->ID, 'title_li' => 'Exercises:', 'meta_key' => 'navigation', 'meta_value' => 'exercise',));
-			wp_list_pages(array('child_of' => $main->ID, 'title_li' => 'Teams:', 'meta_key' => 'navigation', 'meta_value' => 'team',));
-			wp_list_pages(array('child_of' => $main->ID, 'title_li' => 'Students:', 'meta_key' => 'navigation', 'meta_value' => 'student',));
-			
-		}
-		
-		echo '</li>';
-		echo '</ul>';
-	 
-	}
-	
-	echo '</ul>';
-	echo '</div>';
-	
-	wp_reset_query(); // Don't forget this fucking reset query thing or shit will blow the fuck up, mother fucker.
-	
-}
-//
+    global $post;
 
+    $words = get_post_meta($post->ID, 'spotlight-page', true);
+    $get = explode(',' , $words);
 
-// Get My Sub Menu
-function get_my_sub_menu() {
-	
-	global $post;
-	
-	$main_page = get_post_meta($post->ID, 'navigation', true) == 'main';
-	$child_of_main_page = get_post_meta($post->post_parent, 'navigation', true) == 'main';
+    $word01 = $get[0];
+    $word02 = $get[1];
+    $word03 = $get[2];
 
-	if ($main_page || $child_of_main_page) {
-			
-		echo '<div id="sub-nav" class="widget">';
-		echo '<ul id="sub-nav-items">';	
-		
-		if ($post->post_parent) { // if the page has a parent...
-							
-			echo '<li class="pagenav" >'.get_the_title($post->post_parent).' » Class:'; // list "Class" sub-pages
-			echo '<ul>';
-			echo '<li><a href="'.get_permalink($post->post_parent).'">Syllabus</a></li>'; // stick in the link to syllabus with no class
-			wp_list_pages(array('child_of' => $post->post_parent, 'title_li' => '', 'meta_key' => 'navigation', 'meta_value' => 'class',)); 
-			echo '</ul>';
-			wp_list_pages(array('child_of' => $post->post_parent, 'title_li' => get_the_title($post->post_parent).' » Lectures:', 'meta_key' => 'navigation', 'meta_value' => 'lecture',)); // list "Lecture" sub-pages
-			wp_list_pages(array('child_of' => $post->post_parent, 'title_li' => get_the_title($post->post_parent).' » Assignments:', 'meta_key' => 'navigation', 'meta_value' => 'assignment',)); // list "Assignmnets" sub-pages
-			wp_list_pages(array('child_of' => $post->post_parent, 'title_li' => get_the_title($post->post_parent).' » Exercises:', 'meta_key' => 'navigation', 'meta_value' => 'exercise',)); // list "Exercises" sub-pages
-			wp_list_pages(array('child_of' => $post->post_parent, 'title_li' => get_the_title($post->post_parent).' » Teams:', 'meta_key' => 'navigation', 'meta_value' => 'team',)); // list "Teams" sub-pages
-			wp_list_pages(array('child_of' => $post->post_parent, 'title_li' => get_the_title($post->post_parent).' » Students:', 'meta_key' => 'navigation', 'meta_value' => 'student',)); // list "Students" sub-pages
-				
-		} else { // if the page does not have a parent...
-						
-			echo '<li class="pagenav">'.get_the_title($post->ID).' » Class:';
-			echo '<ul>';
-			
-			if (is_page($post->ID)) { // stick in the link to syllabus with class
-				
-				echo '<li class="current_page_item"><a href="'.get_permalink($post->post_parent).'">Syllabus</a></li>';
-				
-			} else {
-				
-				echo '<li><a href="'.get_permalink($post->post_parent).'">Syllabus</a></li>';
-				
-			}
-			
-			wp_list_pages(array('child_of' => $post->ID, 'title_li' => '', 'meta_key' => 'navigation', 'meta_value' => 'class',));
-			echo '</ul>';
-			wp_list_pages(array('child_of' => $post->ID, 'title_li' => get_the_title($post->ID).' » Lectures:', 'meta_key' => 'navigation', 'meta_value' => 'lecture',));
-			wp_list_pages(array('child_of' => $post->ID, 'title_li' => get_the_title($post->ID).' » Assignments:', 'meta_key' => 'navigation', 'meta_value' => 'assignment',));
-			wp_list_pages(array('child_of' => $post->ID, 'title_li' => get_the_title($post->ID).' » Exercises:', 'meta_key' => 'navigation', 'meta_value' => 'exercise',));
-			wp_list_pages(array('child_of' => $post->ID, 'title_li' => get_the_title($post->ID).' » Teams:', 'meta_key' => 'navigation', 'meta_value' => 'team',));
-			wp_list_pages(array('child_of' => $post->ID, 'title_li' => get_the_title($post->ID).' » Students:', 'meta_key' => 'navigation', 'meta_value' => 'student',));
-			
-			}
-			
-		echo '</ul>';
-		echo '</div>';
-			
-	}
-	
-}
-//
+    if ($words) {
 
+        echo '<div id="spotlight-page">';
+        echo '<span id="word-one">'.$word01.'. </span>';
+        echo '<span id="word-two">'.$word02.'. </span>';
+        echo '<span id="word-three">'.$word03.'. </span>';
+        echo '</div>';
 
-// Add a Flexslider Gallery Using Shortcode
-function add_flexslider() {
-						
-	global $post; // don't forget to make this a global variable inside your function or it won't f'ing work
-	
-	$attachments = get_children(array('post_parent' => $post->ID, 'order' => 'ASC', 'orderby' => 'menu_order',  'post_type' => 'attachment', 'post_mime_type' => 'image', )); // get and order the attachments
-	
-	if ($attachments) { // check for images attached to posting
-		
-		$open .= '<div class="flexslider"><ul class="slides">'; // create opening markup
-			 
-		foreach ( $attachments as $attachment ) { // create the list items with images (slides)
-		
-			$slides .= '<li id="slide-' . $attachment->ID . '">' . wp_get_attachment_image($attachment->ID, 'large') . '</li>'; // create slides with large size image markup
-		
-		}
-		
-		$close .= '</ul></div>'; // create closing markup
-		
-	} // end check for images
-		
-	return $open . $slides . $close; // create the whole slider
-		
-} // end function
-
-add_shortcode( 'flexslider', 'add_flexslider' ); // add shortcode
-// 
-
-
-// Add my Thumbnail Gallery Using Shortcode
-function my_thumbnail_gallery() {
-						
-	global $post; // don't forget to make this a global variable inside your function or it won't f'ing work
-	
-	$attachments = get_children(array('post_parent' => $post->ID, 'order' => 'ASC', 'orderby' => 'rand',  'post_type' => 'attachment', 'post_mime_type' => 'image', )); // get and order the attachments
-	
-	if ($attachments) { // check for images attached to posting
-		
-		$open .= '<div class="my-thumb-gallery"><ul class="my-thumbs">'; // create opening markup
-			 
-		foreach ( $attachments as $attachment ) { // create the list items with images and links
-		
-			$thumbs .= '<li id="my-thumb-' . $attachment->ID . '" class="my-thumb">' . wp_get_attachment_link($attachment->ID) . '</li>'; // create a thumbnail size image with link
-		
-		}
-		
-		$close .= '</ul></div>'; // create closing markup
-		
-	} // end check for images
-		
-	return $open . $thumbs . $close; // create the whole gallery
-		
-} // end function
-
-add_shortcode( 'mythumbgallery', 'my_thumbnail_gallery' ); // add shortcode
-// 
-
-
-// Get My Photo Sets from Flickr
-function get_my_flickr_set($atts) {
-    
-    $photoset_id = $atts['id']; // pass the photoset id via shorcode
-    
-    $url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=51deab88b25b39f3f49fe73891c05f32&photoset_id='.$photoset_id.'&user_id=132730337%40N04&format=json&nojsoncallback=1'; // https://www.flickr.com/services/api/explore/flickr.photosets.getPhotos
-    
-    $response = json_decode(file_get_contents($url)); // get url via json
-    
-    $photos = $response->photoset->photo; // response for photosets
-
-    $output = '<ul class="my-flickr-set">'; // begin markup
-
-    foreach( array_reverse($photos) as $photo ) { // begin loop
-
-        $output .= '<li class="my-flickr-thumb"><a href="https://www.flickr.com/photos/132730337@N04/'. $photo->id .'" target="_blank"><img src="http://farm'.$photo->farm.'.staticflickr.com/'.$photo->server.'/'.$photo->id.'_'.$photo->secret.'_q.jpg" /></a></li>'; // create the list item(s) with a square thumbnail that links to the photo on Flickr
-
-    }  // end loop
-
-    $output .= '</ul>';  // end markup
-    
-    return $output; // return it, bitch.
-	
-} // end function
-
-add_shortcode( 'myflickrset','get_my_flickr_set'); // add shortcode
-//
-
-
-// Get My Latest Photos from Flickr
-function get_my_flickr_latest() {
-    
-    $url = 'https://api.flickr.com/services/rest/?method=flickr.people.getPhotos&api_key=51deab88b25b39f3f49fe73891c05f32&user_id=132730337%40N04&per_page=4&format=json&nojsoncallback=1'; // https://www.flickr.com/services/api/explore/flickr.people.getPhotos
-    
-    $response = json_decode(file_get_contents($url)); // get url via json
-    
-    $photos = $response->photos->photo; // response for photos
-
-    $output = '<ul class="my-flickr-latest">'; // begin markup
-
-    foreach( $photos as $photo ) { // begin loop
-
-        $output .= '<li class="my-flickr-thumb"><a href="https://www.flickr.com/photos/132730337@N04/'. $photo->id .'" target="_blank"><img src="http://farm'.$photo->farm.'.staticflickr.com/'.$photo->server.'/'.$photo->id.'_'.$photo->secret.'_q.jpg" /></a></li>'; // create the list item(s) with a square thumbnail that links to the photo on Flickr
-
-    }  // end loop
-
-    $output .= '</ul>';  // end markup
-    
-    return $output; // return it, bitch.
-	
-} // end function
-
-add_shortcode( 'myflickrlatest','get_my_flickr_latest'); // add shortcode 
-//
-
-
-// Enable shortcodes in text widgets
-add_filter('widget_text','do_shortcode');
-//
-
-
-// Open Graph Image
-function get_opengraph_image() {    
-    
-    if ( has_post_thumbnail() ) { // if there is a featured image
-        
-		$get_my_featured_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large', true ); // set the featured image
-		
-		echo $get_my_featured_image[0]; // get the featured image
-                
-    } else { 
-	
-		$get_my_default_image = bloginfo('template_directory').'/images/thumbnail-default.png'; // set the default image
-		
-		echo $get_my_default_image; // get the default image
-    
     }
 	
 }
 //
 
+// Get Portfolio Galleries
+function get_portfolio() {
+    
+    global $post; // don't forget to make this a global variable inside your function
 
-// Dedication Thingy
-function get_dedication() {
+    $attachments = get_children(array('post_parent' => $post->ID, 'order' => 'ASC', 'orderby' => 'menu_order','post_type' => 'attachment'));
+
+    if ($attachments) { 	
+
+        $portfolio;
+
+        foreach ($attachments as $attachment) { 
+
+            $myPermalink = get_permalink($attachment->ID); // link to attachment page
+            $myImage = wp_get_attachment_image($attachment->ID, 'medium'); // image
+            $myTitle = apply_filters('the_title', $attachment->post_title); // title
+            $myCaption = get_post_field('post_excerpt', $attachment->ID); // caption
+
+            $portfolio .= '<section class="portfolio-piece"><a href="'.$myPermalink.'">'.$myImage.'</a><h3><a href="'.$myPermalink.'">'.$myTitle.'&nbsp;&raquo;</a></h3><p>'.$myCaption.' <a href="'.$myPermalink.'" class="more">View&nbsp;&raquo;</a></p></section>';			      
+
+        } // end foreach 
+
+    } // end if attachments
+
+    return $portfolio;
+		
+} // end function
 	
-	echo 'Empty. :-(';
+add_shortcode('portfolio', 'get_portfolio');
+//
+
+// Get SEO Paragraph From Home Page
+function get_seo() {
+
+    $myPosting = get_post(8);
+
+    $mySEO = $myPosting->post_content;
+
+    echo $mySEO;
 	
 }
 //
 
+// Get Featured Case Study 
+function get_featured_case_study($atts) {
+	    
+    $myPostID = intval($atts['id']); // sets the id to pass
 
+    $myPosting = get_post($myPostID); // gets the post of id passed
 
-// Show Gravatars
-function show_avatar($comment, $size) {		
-		
-	$email=strtolower(trim($comment->comment_author_email));
-	$rating = "G"; // [G | PG | R | X]
- 
-	if (function_exists('get_avatar')) {
-		
-		echo get_avatar($email, $size);
-		
-	} else {
-  
-  		$grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=" . md5($emaill) . "&size=" . $size."&rating=".$rating;
-  	
-		echo "<img src='$grav_url'/>";
-	}
-			
+    $caseTitle = $myPosting->post_title; // get title
+    $caseCategory = get_the_category($myPosting->ID)[0]->name; // get category name
+    $caseExcerpt = $myPosting->post_excerpt; // get excerpt
+    $caseImage = get_the_post_thumbnail($myPostID, 'thumbnail'); // get featured thumbnail
+    $caseLink = get_permalink($myPosting->ID); // get permalink
+
+    $myCaseStudy = '<section class="featured-case"><h3><a href="'.$caseLink.'">'.$caseCategory.': '.$caseTitle.' &raquo;</a></h3><a href="'.$caseLink.'">'.$caseImage.'</a><p>'.$caseExcerpt.'&nbsp;<a href="'.$caseLink.'" class="more">Full Story&nbsp;&raquo;</a></p></section>'; // write it up...
+
+    return $myCaseStudy; // ... and return it, bitch.
+	
 }
-//	
 
+add_shortcode('casestudy', 'get_featured_case_study'); // create the shortcode for the function
+//
+
+// Get Featured Page 
+function get_featured_page($atts) {
+	    
+    $myPostID = intval($atts['id']); // sets the id to pass
+
+    $myPosting = get_post($myPostID); // gets the post of id passed
+
+    $pageTitle = $myPosting->post_title; // get title
+    $parentTitle = get_the_title($myPosting->post_parent);
+    $pageExcerpt = $myPosting->post_excerpt; // get excerpt
+    $pageImage = get_the_post_thumbnail($myPostID, 'icon'); // get featured thumbnail
+    $pageLink = get_permalink($myPosting->ID); // get permalink
+
+    $myPage = '<article class="page-excerpt"><a href="'.$pageLink.'">'.$pageImage.'</a><h3><a href="'.$pageLink.'">'.$pageTitle.' &raquo;</a></h3><p>'.$pageExcerpt.'&nbsp;<a href="'.$pageLink.'" class="more">View '.$pageTitle.' '.$parentTitle.'&nbsp;&raquo;</a></p></article>'; // write it up...
+
+    return $myPage; // ... and return it, bitch.
+	
+}
+
+add_shortcode('page', 'get_featured_page'); // create the shortcode for the function
+//
+
+// Get Child Pages 
+function get_child_pages() {
+	
+    global $post;
+
+    rewind_posts(); // stop any previous loops 
+    query_posts(array('post_type' => 'page', 'posts_per_page' => -1, 'post_status' => 'publish','post_parent' => $post->ID,'order' => 'ASC','orderby' => 'menu_order')); // query and order child pages 
+
+    while (have_posts()) : the_post(); 
+
+
+        $childID = $post->ID; // post id
+        $childTitle = $post->post_title; // post titl
+        $parentTitle = get_the_title($post->post_parent);
+        $childImage = get_the_post_thumbnail($post->ID, 'icon'); // get featured thumbnail
+        $childExcerpt = $post->post_excerpt; // post excerpt
+        $childPermalink = get_permalink( $post->ID ); // post permalink
+
+        echo '<article id="page-excerpt-'.$childID.'" class="page-excerpt">';
+        echo '<a href='.$childPermalink.'>'.$childImage.'</a>';
+        echo '<h3><a href="'.$childPermalink.'">'.$childTitle.' &raquo;</a></h3>';
+        echo '<p>'.$childExcerpt.' <a href="'.$childPermalink.'" class="more">View Our '.$childTitle.' '.$parentTitle.'&nbsp;&raquo;</a></p>';
+        echo '</article>';
+
+    endwhile;
+
+    wp_reset_query(); // reset query
+        
+}
+//
+	
+// Add a Flexslider Gallery	
+function add_flexslider() {
+	
+    global $post; // don't forget to make this a global variable inside your function
+
+    $attachments = get_children(array('post_parent' => $post->ID, 'order' => 'ASC', 'orderby' => 'menu_order',  'post_type' => 'attachment', 'post_mime_type' => 'image',));
+
+    if ($attachments) { // see if there are images attached to posting
+
+        echo '<div id="spotlight-home" class="flexslider">';
+        echo '<ul class="slides">';
+
+        foreach ( $attachments as $attachment ) { // create the list items for images with captions
+
+            echo '<li>';
+            echo wp_get_attachment_image($attachment->ID, 'full'); // get image size large
+            echo '<span class="description">';
+            echo get_post_field('post_content', $attachment->ID); // get image description field
+            echo '</span>';
+            echo '</li>';
+
+        }
+
+        echo '</ul>';
+        echo '</div>';
+
+    } // end see if images attached
+
+} 
+// 
+
+// Get Featured Image with a Custom Link
+function get_featured_image_with_link() {
+	
+    global $post;
+
+    $theImage = get_the_post_thumbnail($page->ID, 'large');
+    $theLink = get_post_meta($post->ID, 'featured-image-link', true);
+
+    echo '<figure class="featured-image">';
+
+    if ($theLink) { 
+
+        echo '<a href="'.$theLink.'" target="_blank" title="View: '.$theLink.'">'.$theImage.'</a>';
+
+    } else {
+
+        echo $theImage;
+
+    }
+
+    echo '</figure>';
+	
+}
+//
+
+/* ------ Other Authors ----- */
 
 // Remove Inline Styles from Captions
 add_shortcode('wp_caption', 'fixed_img_caption_shortcode');
 add_shortcode('caption', 'fixed_img_caption_shortcode');
-
 function fixed_img_caption_shortcode($attr, $content = null) {
 	
-	if ( ! isset( $attr['caption'] ) ) {
-		if ( preg_match( '#((?:<a [^>]+>\s*)?<img [^>]+>(?:\s*</a>)?)(.*)#is', $content, $matches ) ) {
-			$content = $matches[1];
-			$attr['caption'] = trim( $matches[2] );
-		}
-	}
+    if (!isset( $attr['caption'])) {
+        
+        if (preg_match( '#((?:<a [^>]+>\s*)?<img [^>]+>(?:\s*</a>)?)(.*)#is', $content, $matches )) {
+            
+            $content = $matches[1];
+            $attr['caption'] = trim($matches[2]);
+            
+        }
+    }
 
 	$output = apply_filters('img_caption_shortcode', '', $attr, $content);
-	if ( $output != '' )
+    
+	if ($output != '')
 		return $output;
 
-	extract(shortcode_atts(array('id' => '', 'align'	=> 'alignnone', 'width'	=> '', 'caption' => ''), $attr));
+	extract(shortcode_atts(array('id' => '', 'align' => 'alignnone', 'width' => '', 'caption' => ''), $attr));
 
-	if ( 1 > (int) $width || empty($caption) )
+	if (1 > (int) $width || empty($caption))
 		return $content;
 
-	if ( $id ) $id = 'id="' . esc_attr($id) . '" ';
+	if ($id) $id = 'id="'.esc_attr($id).'" ';
 
-	return '<div ' . $id . 'class="wp-caption ' . esc_attr($align) . '" >'
-	. do_shortcode( $content ) . '<p class="wp-caption-text">' . $caption . '</p></div>';
+	return '<div '.$id.'class="wp-caption '.esc_attr($align).'" >'.do_shortcode( $content ).'<p class="wp-caption-text">'.$caption.'</p></div>';
 }
 //
 
-
-// Remove Emojis
-remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-remove_action( 'wp_print_styles', 'print_emoji_styles' );
+//  Show Gravatars
+function show_avatar($comment, $size) {	
+			
+	$email=strtolower(trim($comment->comment_author_email));
+	$rating = "G"; // [G | PG | R | X]
+	 
+	if (function_exists('get_avatar')) {
+		
+		echo get_avatar($email, $size);
+	
+	} else {
+  
+	  $grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=".md5($emaill)."&size=".$size."&rating=".$rating;
+		 
+	  echo "<img src='$grav_url'/>";
+	  
+	}
+	
+}
 //
 
-	
 ?>

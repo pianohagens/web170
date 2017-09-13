@@ -20,5 +20,5 @@
 </div>
 </div>
 <!-- End Content -->
-
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

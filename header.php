@@ -1,7 +1,11 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
+<!-- Start Meta -->
+<meta name="description" content="<?php echo strip_tags(get_the_excerpt()); ?>" />
+<meta name="keywords" content="Piano's WP_Starter Wireframs, Web Design, WordPress, Web Development, Search Engine Optiomization (SEO), Seattle, Washington" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
+<!-- End Meta -->
     
 <!-- Start Title Tag -->
 <?php the_title( '<h1>', '</h1>' ); ?>

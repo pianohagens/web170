@@ -37,4 +37,78 @@ add_post_type_support( 'page', 'excerpt' );
 
 // Create Post Thumbnails
 add_theme_support( 'post-thumbnails' );
+
+// Get Title Tag
+function get_title_tag(){
+    
+    global $post;
+    
+    if (is_front_page()) { // if it is front page
+        
+        bloginfo('description');// then retrieve the site tagline
+        
+    } elseif (is_page()) {//if just pages
+        
+        the_title(); // then just retrieve the page title
+        
+        if ($post->post_parent) {// if the page has a parent
+            
+            echo ' | '; //separator with spaces
+            echo get_the_title($post->post_parent); //retrieve the parent page title      
+        
+        }
+    
+    } elseif (is_category()) { // for your sites. categories
+        
+            echo get_the_category()[0]->cat_name; //retrieve the category name    
+        
+    } elseif (is_single()) { //if it is single - a post
+        
+        the_title(); //retrieve the posting title
+        echo ' | '; //separator with spaces
+        echo get_the_category()[0]->cat_name; //retrieve the category name        
+    } else { //for everything else 
+        
+        bloginfo('description');// then retrieve the site tagline   
+    
+    }
+    
+    echo ' | '; //separator with spaces
+    bloginfo('name');// then retrieve the site name
+    echo ' | '; //separator with spaces
+    echo 'SeattleBB, WA.'; //the location
+    
+}
+//
+
+// get Search Engine Optimize
+function get_seo() {
+    $posters = get_post(8);
+    $theSEO = $posters->post_content;
+    echo $theSEO;
+}
+//
+
+//Gateway page Spotlights
+function gateway_spotlights(){
+    global $post;
+    
+    $words = get_post_meta($post->ID, 'spotlight-page', true);
+    $gets = explode (',', $words);
+    
+    $word001 = $gets[0];
+    $word002 = $gets[1];
+    $word003 = $gets[2];
+    
+    if ($words) {
+        echo '<div id="spotlight-page">';
+        
+        echo '<span id="word01">'.$word001.'</span>';
+        echo '<span id="word02">'.$word002.'</span>';
+        echo '<span id="word03">'.$word003.'</span>';       
+        
+        echo '</div>';        
+    }
+    
+}
 ?>
