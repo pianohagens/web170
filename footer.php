@@ -1,3 +1,6 @@
+
+</div>
+</div>
 <div id="container">  
     <!-- Start WP Footer -->
 <?php wp_footer(); ?>

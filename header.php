@@ -14,6 +14,7 @@
 <!----- Begin Styles --------------->
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('stylesheet_url'); ?>" />
 <link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/menu.css" type="text/css">
+<link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/lightboxp.css" type="text/css">
 <!----- End Styles --------------->
  
 <!-- Start WP Head -->
@@ -23,7 +24,7 @@
  <!-- Start script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/navig.js"></script>   
-
+<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/lightboxp.js"></script>   
 <!-- End script -->   
 
         
@@ -56,4 +57,7 @@
 <?php wp_nav_menu(array('theme_location' => 'loca-menu', 'container' => 'div', 'container_id' => 'navbar')); ?>
 <!-- End WP Menu -->
 
- </div>   
+ </div>  
+    
+     <div id="container"> 
+         <div id="main">

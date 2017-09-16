@@ -1,4 +1,4 @@
-    
+    </div>
     <!----- Begin aside --------------->
     <div id="sidebar">
         <h2> <?php echo get_the_title($post->post_parent); ?></h2>

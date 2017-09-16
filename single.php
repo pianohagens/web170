@@ -1,9 +1,7 @@
 <?php get_header(); ?>
 	
-<!-- Start Content -->
-<div id="container"> 
-<div id="main">
-	<!-- Begin Content -->    
+    <!-- Start Content -->    
+    <!----- Begin Main ---------------> 
         <?php if (have_posts() ) : while ( have_posts() ) : the_post(); // start the loop ?>
         
         <article id="post-<?php the_ID(); ?>" class="post">
@@ -17,8 +15,7 @@
     <!-- End Content -->
         <h5>single.php</h5>  
         </article>
-</div>
-</div>
+<!----- End Main ---------------> 
 <!-- End Content -->
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
