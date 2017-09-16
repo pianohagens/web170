@@ -28,12 +28,6 @@ register_sidebar(array(
 // Create page Excerpts
 add_post_type_support( 'page', 'excerpt' );
 
-//// custom_excerpt Filter the except length to 20 words.
-//function custom_excerpt_length( $length ) {
-//    return 20;
-//}
-//add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
-//
 
 // Create Post Thumbnails
 add_theme_support( 'post-thumbnails' );
@@ -113,30 +107,6 @@ function gateway_spotlights(){
 }
 //
 
-// Child pages
-// Get Child Pages 
-//function get_child_pages() {
-//	
-//    global $post;
-//    rewind_posts(); // stop any previous loops 
-//    query_posts(array('post_type' => 'page', 'posts_per_page' => -1, 'post_status' => 'publish','post_parent' => $post->ID,'order' => 'ASC','orderby' => 'menu_order')); // query and order child pages 
-//    while (have_posts()) : the_post(); 
-//        $childID = $post->ID; // post id
-//        $childTitle = $post->post_title; // post titl
-//        $parentTitle = get_the_title($post->post_parent);
-//        $childImage = get_the_post_thumbnail($post->ID, 'housing'); // get featured thumbnail
-//        $childExcerpt = $post->post_excerpt; // post excerpt
-//        $childPermalink = get_permalink( $post->ID ); // post permalink
-//        echo '<article id="page-excerpt-'.$childID.'" class="page-excerpt">';
-//        echo '<a href='.$childPermalink.'>'.$childImage.'</a>';
-//        echo '<h3><a href="'.$childPermalink.'">'.$childTitle.' &raquo;</a></h3>';
-//        echo '<p>'.$childExcerpt.' <a href="'.$childPermalink.'" class="more">View Our '.$childTitle.' '.$parentTitle.'&nbsp;&raquo;</a></p>';
-//        echo '</article>';
-//    endwhile;
-//    wp_reset_query(); // reset query
-//        
-//}
-//
-//
+
 
 ?>

@@ -59,5 +59,5 @@
 
  </div>  
     
-     <div id="container"> 
+     <div id="container body" class="body"> 
          <div id="main">

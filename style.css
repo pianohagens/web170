@@ -51,6 +51,12 @@ div#container{
 
 
 /********************* End Menu ********************************/
+div.body{
+    width: 95%;
+    background:blue;
+    margin: 0 auto;
+    z-index: 555555555555555;
+}
 #main {
     float: left;
     width: 62%;
@@ -62,7 +68,7 @@ div#container{
 
 #sidebar {
     margin: 5px;
-    float: right;
+    float: left;
     width: 28%;
     background-color: lightgray;
     padding: 30px;
@@ -76,28 +82,44 @@ div#container{
     line-height: 150%;
     color: #000;
 }
-/*----------------------- post Thumbnails --------------*/
-#main article.post-excerpt {
-    overflow: hidden;
-    margin-bottom: 20px;
+/*----------------------- Start #widgets --------------*/
+
+#widgets { 
+		overflow: hidden;
+	}
+    #widgets section.widget-item ul > li{
+        display: inline-block;
+        border-left: 2px solid #cccccc;
+	    padding-left: 15px;
+    }
+
+	#widgets section.widget-item ul > li > a{
+	color: #4a4a4a;
+	}
+
+	#widgets section.widget-item ul > li > h4 > a{
+	color: #4a4a4a;
+	}
+
+	#widgets section.widget-item {
+        width: 32%;
+		float: left;	
+		margin: 2px auto auto 5px;
+		padding: 1px;	border: 2px solid red;}
+
+
+/* Tablet Screen Set to 769px or Below  */
+@media screen and (max-width: 769px) {
+	#widgets section.widget-item {
+        width: 90%;
+		max-width: 768px;
+	}
+    #sidebar {    
+    width: 85%;
+}
 }
 
-#main img.wp-post-image {}
-#main img.attachment-thumbnail {
-    float: left;
-    margin: 4px 20px;
-    border: 2px solid purple;
-}
-#main img.attachment-medium {}
-#main img.attachment-large {}
-#main img.attachment-full {}
-#main img.featured{
-    border: 2px solid red;
-    margin:10px;
-    padding: 5px;
-}
-
-/*---------------------------------------------------*/
+/*----------------------- End #widgets--------------------------*/
 
 
 #footer {
