@@ -1,5 +1,5 @@
 
-</div>
+
 </div>
 <div id="container">  
     <!-- Start WP Footer -->

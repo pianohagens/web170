@@ -6,6 +6,16 @@
         
 <!----- Begin Styles --------------->
 <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="flexslider.css" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        
+        
+<script src="js/jquery.flexslider.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $(window).load(function() {
+    $('.flexslider').flexslider();
+  });
+</script>
 <!----- End Styles --------------->
         
     </head><!----- End head --------------->
@@ -31,7 +41,22 @@
         
     <!----- Begin Main --------------->
     <div id="main">
-        <h2>This is my Main</h2>   
+        <h2>This is my Main</h2> 
+        
+    <div class="flexslider">
+  <ul class="slides">
+    <li>
+      <img src="http://fpoimg.com/430x120?text=Logo&bg_color=888888&text_color=000000" />
+    </li>
+    <li>
+      <img src="http://fpoimg.com/430x120?text=Logo&bg_color=999999&text_color=222222" />
+    </li>
+    <li>
+      <img src="http://fpoimg.com/430x120?text=Logo&bg_color=666666&text_color=333333" />
+    </li>
+  </ul>
+</div>
+        
     </div>
     <!----- End Main --------------->
         

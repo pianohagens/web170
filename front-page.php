@@ -2,6 +2,10 @@
 
 
     <!----- Begin Main --------------->
+
+<!-- Start Flexslider -->
+<?php add_flexslider(); ?>
+<!-- End Flexslider -->
         <h5>front-page.php</h5>          
 
     <!----- End Main --------------->  

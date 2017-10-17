@@ -118,8 +118,53 @@ div.body{
     width: 85%;
 }
 }
-
 /*----------------------- End #widgets--------------------------*/
+
+#spotlight-home {
+		width: 100%;
+		height: auto;
+		background:url(images/bg-spotlight.svg) bottom right no-repeat;
+		position: relative;
+		margin-bottom: 40px;
+		}
+		
+	#spotlight-home span.description {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		color: #C4122F;
+		text-align: right;
+		text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF;
+	}
+	
+	#spotlight-home span.description blockquote {
+		font-size: 2em;
+		line-height: 125%;	
+		margin-bottom: 10px;
+		width: 70%;
+		float: right;
+	}
+	
+	#spotlight-home span.description cite {
+		font-size: 1em;
+		line-height: 125%;
+		margin-bottom: 10px;
+		display: block;
+		width: 50%;
+		clear: both;
+		float: right;
+	}
+	
+	#spotlight-home span.description a {
+		display: block;
+		color: #C4122F;
+		line-height: 125%;
+		font-style: italic;
+		width: 50%;
+		clear: both;
+		float: right;
+	}
+/*----------------------- End #flexslider--------------------------*/
 
 
 #footer {
